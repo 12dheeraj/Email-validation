@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Validator</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Paurav Shah">
+    <meta name="description" content="A simple Web App to validate any Email.">
+    <meta name="keywords" content="Email-Validator, Email-Verification, Validate-Email, Verify-Email, Email-Spam, Email, Validator">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/api.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1 id="app-name"><span><i class="fas fa-envelope-open"></i></span> Email Validator</h1>
+        <p id="app-desc">A simple <i><b>Web App</b></i> to validate any <i><b>Email</b></i>.</p>
+        <br>
+    </header>
+    <div id="email-validator">
+        <form id="email-verification-form" action="javascript:void(0);" onsubmit="verifyEmail()">
+            <input id="email-input" type="email" placeholder="abc@xyz.com" required>
+            <input id="btn-verify" type="submit" value="Verify">
+        </form>
+        <br>
+        <h1 id="result-heading">Results</h1>
+        <p id="email"></p>
+            <table id="response-table">
+                <tr>
+                    <th>Info</th>
+                    <th>Properties</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td><a href="#deliverability" data-toggle="tooltip" data-placement="top" title="Email deliverability is the ability to deliver emails to subscribers' inboxes."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Deliverability</td>
+                    <td id="deliverability">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#quality-score" data-toggle="tooltip" data-placement="top" title="Quality score is a good indicator on engagement quality and should be combined with other email metrics like opens, clicks or unsubscribes."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Quality Score</td>
+                    <td id="quality-score">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-valid-format" data-toggle="tooltip" data-placement="top" title="A valid email address consists of an email prefix and an email domain, both in acceptable formats."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is email format valid?</td>                    
+                    <td id="is-valid-format">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-free-email" data-toggle="tooltip" data-placement="top" title="It is a service that provides free email delivery."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is email free?</td>
+                    <td id="is-free-email">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-disposable-email" data-toggle="tooltip" data-placement="top" title="Disposable email addressing, also known as DEA or dark mail, refers to an approach which involves a unique email address being used for every contact, entity, or for a limited number of times or uses."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is email disposable?</td>
+                    <td id="is-disposable-email">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-role-email" data-toggle="tooltip" data-placement="top" title="Role-based email addresses (like admin@, help@, sales@, leads@) are email addresses that are not associated with a particular person, but rather with a company, department, position or group of recipients."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is email role-based?</td>
+                    <td id="is-role-email">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-catchall-email" data-toggle="tooltip" data-placement="top" title="A catch-all email account is an account that captures emails sent to any invalid email addresses of the domain."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is email catch-all?</td>                    
+                    <td id="is-catchall-email">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-mx-found" data-toggle="tooltip" data-placement="top" title="A mail exchanger record (MX record) specifies the mail server responsible for accepting email messages on behalf of a domain name."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is MX found?</td>                    
+                    <td id="is-mx-found">--</td>
+                </tr>
+                <tr>
+                    <td><a href="#is-smtp-valid" data-toggle="tooltip" data-placement="top" title="The Simple Mail Transfer Protocol is an internet standard communication protocol for electronic mail transmission. Mail servers and other message transfer agents use SMTP to send and receive mail messages."><i class="fas fa-info-circle"></i></a></td>
+                    <td>Is SMTP valid?</td>                    
+                    <td id="is-smtp-valid">--</td>
+                </tr>
+            </table>
+    </div>
+    <footer>
+    </footer>
+    <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>
